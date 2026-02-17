@@ -2,3 +2,8 @@ node_modules
 .env
 backend/.env
 *env.prod.yaml
+*venv
+*.csv
+
+seed.py
+.dockerignore
