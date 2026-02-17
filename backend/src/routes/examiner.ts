@@ -4,6 +4,8 @@ import { RepresentativeAnswerModel } from "../db/representative_answer.js";
 import { ExaminerEvaluationModel } from "../db/evaluation.js";
 import { Examiner } from "../db/examiner.js";
 
+// gcloud run deploy examiner-backend --source ./backend --env-vars-file ./backend/env.prod.yaml --region us-east1
+
 const router: Router = express.Router();
 const ALLOWED_GRADES = ["Correct", "Partially Correct", "Incorrect", "Hallucination"];
 const TOTAL_QUESTIONS = 15;
@@ -13,17 +15,35 @@ router.get("/grades", (_: Request, res: Response) => {
     return res.status(200).json({ grades: ALLOWED_GRADES });
 });
 
+function isBetween8And12(date: Date, timezone: string): boolean {
+    try {
+        const hour = Number(
+            new Intl.DateTimeFormat("en-US", {
+                timeZone: timezone,
+                hour12: false,
+                hour: "numeric"
+            }).format(date)
+        );
+        return hour >= 8 && hour < 12;
+    } catch {
+        // Invalid timezone, fall back to Eastern
+        return isBetween8And12(date, "America/New_York");
+    }
+}
+
 router.get("/login", async (req: Request, res: Response) => {
     try {
-        const { username, timestamp } = req.query;
+        const { username, timestamp, timezone } = req.query;
 
         if (!username) {
             return res.status(400).json({ message: "Name required" });
         }
 
         const now = timestamp ? new Date(timestamp as string) : new Date();
+        const tz = (timezone as string) || "America/New_York";
+        console.log(timezone)
 
-        if (!isBetween8And12EST(now)) {
+        if (!isBetween8And12(now, tz)) {
             return res.status(403).json({ message: "Login not allowed at this time" });
         }
 
@@ -106,8 +126,7 @@ router.get("/nextQuestion", async (req: Request, res: Response) => {
         const answeredIds = answered.map((doc) => doc.representative_answer_id.toString());
 
         const questionSet = await RepresentativeAnswerModel.find({})
-            .sort({ question_id: 1 })
-            .limit(TOTAL_QUESTIONS);
+            .sort({ question_id: 1 });
 
         const next = questionSet.find((q) => !answeredIds.includes(q._id.toString()));
 
@@ -170,8 +189,7 @@ export const createExaminerEvaluation = async (
         }
 
         const questionSet = await RepresentativeAnswerModel.find({})
-            .sort({ question_id: 1 })
-            .limit(TOTAL_QUESTIONS);
+            .sort({ question_id: 1 });
 
         const targetQuestion = questionSet.find(
             (q) => q._id.toString() === String(representative_answer_id)

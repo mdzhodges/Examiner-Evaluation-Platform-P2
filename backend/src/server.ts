@@ -54,7 +54,9 @@ async function connectMongo() {
         throw new Error("Mongo connection string missing (MONGO_URI).");
     }
     try {
-        await mongoose.connect(MONGO_URI);
+        await mongoose.connect(MONGO_URI, {
+            dbName: "examiner_db"
+        });
         console.log("MongoDB connected");
     } catch (error) {
         console.error("MongoDB connection error:", error);

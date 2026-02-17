@@ -30,7 +30,6 @@ const Login = ({
         onUsernameChange(e.target.value);
     };
 
-    console.log(username)
     return (
         <div className="card">
             <header>
@@ -61,7 +60,7 @@ const Login = ({
             {status === "error" && <div className="status error">{message}</div>}
 
             <div className="info">
-                <div><strong>Login window:</strong> 8:00am–12:00pm Eastern</div>
+                <div><strong>Login window:</strong> 8:00am–12:00pm</div>
                 {loginTime && <div><strong>Login time:</strong> {new Date(loginTime).toLocaleString()}</div>}
             </div>
         </div>

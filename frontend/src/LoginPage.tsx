@@ -31,9 +31,12 @@ const LoginPage = ({ examinerId, onLoginSuccess }: LoginPageProps) => {
             setMessage("");
 
         try {
-            const params = new URLSearchParams({ username: trimmedName });
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const params = new URLSearchParams({
+                username: trimmedName,
+                timezone
+            });
             const url = `${apiUrl("/examiner/login")}?${params.toString()}`;
-            console.log(url)
             const response = await fetch(url, {
                 method: "GET"
             });
