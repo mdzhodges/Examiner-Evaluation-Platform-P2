@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Examiner-Evaluation-Platform-P2/static/css/main.efef2e69.css",
+    "main.js": "/Examiner-Evaluation-Platform-P2/static/js/main.8e139bb5.js",
+    "index.html": "/Examiner-Evaluation-Platform-P2/index.html",
+    "main.efef2e69.css.map": "/Examiner-Evaluation-Platform-P2/static/css/main.efef2e69.css.map",
+    "main.8e139bb5.js.map": "/Examiner-Evaluation-Platform-P2/static/js/main.8e139bb5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.efef2e69.css",
+    "static/js/main.8e139bb5.js"
+  ]
+}
