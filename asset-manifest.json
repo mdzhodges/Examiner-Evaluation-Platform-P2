@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Examiner-Evaluation-Platform-P2/static/css/main.63d04304.css",
-    "main.js": "/Examiner-Evaluation-Platform-P2/static/js/main.9a83f974.js",
+    "main.js": "/Examiner-Evaluation-Platform-P2/static/js/main.1cee3a40.js",
     "index.html": "/Examiner-Evaluation-Platform-P2/index.html",
     "main.63d04304.css.map": "/Examiner-Evaluation-Platform-P2/static/css/main.63d04304.css.map",
-    "main.9a83f974.js.map": "/Examiner-Evaluation-Platform-P2/static/js/main.9a83f974.js.map"
+    "main.1cee3a40.js.map": "/Examiner-Evaluation-Platform-P2/static/js/main.1cee3a40.js.map"
   },
   "entrypoints": [
     "static/css/main.63d04304.css",
-    "static/js/main.9a83f974.js"
+    "static/js/main.1cee3a40.js"
   ]
 }
